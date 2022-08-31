@@ -18,9 +18,9 @@
 
 This project was created to create a blog site similar to Wordpress site, using Handlebars.js as the templating language, Sequelize as the ORM, express-session npm package for authentication, and deploy it to Heroku.
 
-User Story: Want CMS-style blog site, can publish articles, blog posts, and my thoughts and opinions.
-
 ## Usage
+
+User Story: Want CMS-style blog site, can publish articles, blog posts, and my thoughts and opinions.
 
 Developers (users) can publish their blog post and comment on other developers' post.
 
