@@ -20,9 +20,9 @@ This project was created to create a blog site similar to Wordpress site, using 
 
 ## Usage
 
-User Story: Want CMS-style blog site, can publish articles, blog posts, and my thoughts and opinions.
+CMS-style blog site, can publish articles, blog posts, and user's thoughts and opinions post.
 
-Developers (users) can publish their blog post and comment on other developers' post.
+User can also comment on other developers' post.
 
 ## Acceptance Criteria
 
