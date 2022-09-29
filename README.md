@@ -4,25 +4,17 @@
 
 [Descripton](#description)
 
-[Usage](#usage)
-
 [Acceptance Criteria](#acceptance-criteria)
 
 [Link to Demo](#link-to-demo)
 
-[Tests](#tests)
+[Technology](#technology)
 
 [Questions](#questions)
 
 ## Description
 
 This project was created to create a blog site similar to Wordpress site, using Handlebars.js as the templating language, Sequelize as the ORM, express-session npm package for authentication, and deploy it to Heroku.
-
-## Usage
-
-CMS-style blog site, can publish articles, blog posts, and user's thoughts and opinions post.
-
-User can also comment on other developers' post.
 
 ## Acceptance Criteria
 
@@ -68,9 +60,15 @@ THEN I am able to view comments but I am prompted to log in again before I can a
 
 [GitHub URL](https://github.com/idakukimiya/automation-narrative)
 
-## Tests
+## Technology
 
-No test run is set up.
+* MVC pardigm (Handlebars.js)
+
+* ORM Sequelize
+
+* Express-session npm package for aauthentication
+
+* Heroku deployment
 
 ## Questions
 
