@@ -1,28 +1,14 @@
-const { Gallery } = require('../models');
-
-const gallerydata = [
+[
   {
-    name: 'Printemps',
-    starting_date: 'April 20, 2021 07:00:00',
-    ending_date: 'June 21, 2021 17:00:00',
+    "title": "Teslas Suck!",
+    "content": "I was driving around last night in my Tesla and the battery just died on me! Took it to the shop this morning but they told me I had to replace the whole battery! Had a buddy this happened to a while back, too. DON'T TRUST TESLA!"
   },
   {
-    name: 'Sommer',
-    starting_date: 'June 22, 2021 09:00:00',
-    ending_date: 'September 22, 2021 22:00:00',
+    "title": "Tech Quiz",
+    "content": "Just found a way to test people on their technical skills in car machinery over the internet! Looking for people who are interested in trying it out, so hit me up if you're looking for a way to test your skills!"
   },
   {
-    name: 'Herfst',
-    starting_date: 'September 23, 2021 08:30:00',
-    ending_date: 'December 21, 2021 20:30:00',
-  },
-  {
-    name: 'Invierno',
-    starting_date: 'December 22, 2020 11:00:00',
-    ending_date: 'March 19, 2021 19:00:00',
-  },
-];
-
-const seedGallery = () => Gallery.bulkCreate(gallerydata);
-
-module.exports = seedGallery;
+    "title": "Solar-Powered A/C",
+    "content": "Started a project where I could possibly create a solar powered air conditioner, as air conditioners are always facing out the window. Follow this blog if you want to keep up with my journey!"
+  }
+]
