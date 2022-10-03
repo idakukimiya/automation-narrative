@@ -1,82 +1,85 @@
 const router = require('express').Router();
-const { Gallery, Painting } = require('../models');
+const { Post, User, Comment } = require('../models');
+const withAuth = require('../utils/auth');
 
-// GET all galleries for homepage
 router.get('/', async (req, res) => {
   try {
-    const dbGalleryData = await Gallery.findAll({
+    // Get all projects and JOIN with user data
+    const postData = await Post.findAll({
       include: [
         {
-          model: Painting,
-          attributes: ['filename', 'description'],
+          model: User,
+          attributes: ['name'],
         },
       ],
     });
 
-    const galleries = dbGalleryData.map((gallery) =>
-      gallery.get({ plain: true })
-    );
-    // Send over the 'loggedIn' session variable to the 'homepage' template
-    res.render('homepage', {
-      galleries,
-      loggedIn: req.session.loggedIn,
+    // Serialize data so the template can read it
+    const posts = postData.map((post) => post.get({ plain: true }));
+
+    // Pass serialized data and session flag into template
+    res.render('homepage', { 
+      posts, 
+      logged_in: req.session.logged_in 
     });
   } catch (err) {
-    console.log(err);
     res.status(500).json(err);
   }
 });
 
-// GET one gallery
-router.get('/gallery/:id', async (req, res) => {
+router.get('/post/:id', async (req, res) => {
   try {
-    const dbGalleryData = await Gallery.findByPk(req.params.id, {
+    const postData = await Post.findByPk(req.params.id, {
       include: [
         {
-          model: Painting,
-          attributes: [
-            'id',
-            'title',
-            'artist',
-            'exhibition_date',
-            'filename',
-            'description',
-          ],
+          model: User,
+          attributes: ['name']
         },
+        {
+          model: Comment,
+          attributes: ['content']
+        }
       ],
     });
 
-    const gallery = dbGalleryData.get({ plain: true });
-    // Send over the 'loggedIn' session variable to the 'gallery' template
-    res.render('gallery', { gallery, loggedIn: req.session.loggedIn });
+    const post = postData.get({ plain: true });
+
+    res.render('post', {
+      ...post,
+      logged_in: req.session.logged_in
+    });
   } catch (err) {
-    console.log(err);
     res.status(500).json(err);
   }
 });
 
-// GET one painting
-router.get('/painting/:id', async (req, res) => {
+// Use withAuth middleware to prevent access to route
+router.get('/dashboard', withAuth, async (req, res) => {
   try {
-    const dbPaintingData = await Painting.findByPk(req.params.id);
+    // Find the logged in user based on the session ID
+    const userData = await User.findByPk(req.session.user_id, {
+      attributes: { exclude: ['password'] },
+      include: [{ model: Post }],
+    });
 
-    const painting = dbPaintingData.get({ plain: true });
-    // Send over the 'loggedIn' session variable to the 'homepage' template
-    res.render('painting', { painting, loggedIn: req.session.loggedIn });
+    const user = userData.get({ plain: true });
+
+    res.render('dashboard', {
+      ...user,
+      logged_in: true
+    });
   } catch (err) {
-    console.log(err);
     res.status(500).json(err);
   }
 });
 
-// Login route
 router.get('/login', (req, res) => {
-  // If the user is already logged in, redirect to the homepage
-  if (req.session.loggedIn) {
-    res.redirect('/');
+  // If the user is already logged in, redirect the request to another route
+  if (req.session.logged_in) {
+    res.redirect('/dashboard');
     return;
   }
-  // Otherwise, render the 'login' template
+
   res.render('login');
 });
 
